@@ -1,0 +1,75 @@
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="geochart-colors"></div>
+
+google.charts.load('current', {
+  callback: drawRegionsMap,
+  packages: ['geochart']
+});
+
+function drawRegionsMap() {
+  var data = google.visualization.arrayToDataTable([
+    ['Lat','Lng','Value','Country'],
+    [41.153332,20.168331,58,'Albania'],
+    [-25.274398,133.775136,28,'Australia'],
+    [40.143105,47.576927,47,'Azerbaijan'],
+    [23.684994,90.356331,52,'Bangladesh'],
+    [-3.373056,29.918886,76,'Burundi'],
+    [12.565679,104.990963,28,'Cambodia'],
+    [56.130366,-106.346771,79,'Canada'],
+    [-35.675147,-71.542969,48,'Chile'],
+    [26.820553,30.802498,7,'Egypt'],
+    [-16.578193,179.414413,127,'Fiji'],
+    [46.227638,2.213749,25,'France'],
+    [51.165691,10.451526,29,'Germany'],
+    [22.396428,114.109497,9,'Hong Kong'],
+    [20.593684,78.96288,119,'India'],
+    [-0.789275,113.921327,35,'Indonesia'],
+    [31.046051,34.851612,41,'Israel'],
+    [41.87194,12.56738,4,'Italy'],
+    [30.585164,36.238414,102,'Jordan'],
+    [-0.023559,37.906193,121,'Kenya'],
+    [29.31166,47.481766,59,'Kuwait'],
+    [33.854721,35.862285,127,'Lebanon'],
+    [55.169438,23.881275,3,'Lithuania'],
+    [23.634501,-102.552784,10,'Mexico'],
+    [9.081999,8.675277,48,'Nigeria'],
+    [30.375321,69.345116,91,'Pakistan'],
+    [31.952162,35.233154,66,'Palestinian Territories'],
+    [12.879721,121.774017,80,'Philippines'],
+    [51.919438,19.145136,242,'Poland'],
+    [25.354826,51.183884,86,'Qatar'],
+    [45.943161,24.96676,35,'Romania'],
+    [61.52401,105.318756,133,'Russia'],
+    [23.885942,45.079162,15,'Saudi Arabia'],
+    [1.352083,103.819836,2,'Singapore'],
+    [48.669026,19.699024,9,'Slovakia'],
+    [35.907757,127.766922,41,'South Korea'],
+    [40.463667,-3.74922,111,'Spain'],
+    [7.873054,80.771797,97,'Sri Lanka'],
+    [-6.369028,34.888822,34,'Tanzania'],
+    [13.443182,-15.310139,129,'Gambia'],
+    [38.963745,35.243322,2,'Turkey'],
+    [23.424076,53.847818,85,'United Arab Emirates'],
+    [55.378051,-3.435973,56,'United Kingdom'],
+    [48.379433,31.16558,97,'Ukraine'],
+    [37.09024,-95.712891,130,'United States'],
+    [6.42375,-66.58973,120,'Venezuela'],
+    [45.1,15.2,20,'Croatia']
+  ]);
+
+  var view = new google.visualization.DataView(data);
+  view.setColumns([0, 1, 2, {
+    calc: function (dt, row) {
+      return dt.getValue(row, 3) + ': ' + dt.getFormattedValue(row, 2);
+    },
+    role: 'tooltip',
+    type: 'string'
+  }]);
+
+  var options = {
+    displayMode: 'markers',
+  };
+
+  var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+  chart.draw(view, options);
+}
